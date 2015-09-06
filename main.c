@@ -59,7 +59,6 @@ qemu_qmp_conn(struct qmp_conn *qmpc)
         /* establish connection */
         r = qmp_establish_conn(qmpc);
         if (r == -1) {
-                xfree(qmpc->qmp_sock_path);
                 dprintf("Unable to talk to qemu monitor\n");
                 goto err_exit;
         }
@@ -67,7 +66,6 @@ qemu_qmp_conn(struct qmp_conn *qmpc)
         /* perform qmp negotiate in order to send commands */
         r = qmp_negotiate(qmpc);
         if (r == -1) {
-                xfree(qmpc->qmp_sock_path);
                 dprintf("Failed to negotiate qmp commands\n");
                 goto err_exit;
         }
